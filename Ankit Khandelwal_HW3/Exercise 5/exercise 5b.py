@@ -4,17 +4,20 @@ Ankit Khandelwal
 Exercise 5b
 """
 
+
 def fy(x):
     a = 1
     b = 2
-    return b/(a+x**2)
+    return b / (a + x ** 2)
+
 
 def fx(x, y):
     a = 1
-    return y*(a + x**2)
+    return y * (a + x ** 2)
+
 
 x = 1
-while abs(x - fx(x, fy(x))) > 10**-7:
+while abs(x - fx(x, fy(x))) > 10 ** -7:
     print(x, fy(x))
     x = fx(x, fy(x))
 print('\nX value is:', x, 'Y value is:', fy(x))

@@ -4,27 +4,27 @@ ANKIT KHANDELWAL
 Exercise 4
 '''
 
-import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 
 dow = pd.read_csv("dow.txt", sep='\n', header=None)
-N=1024
-d =[]
+N = 1024
+d = []
 for i in range(1024):
     d.append(dow[0][i])
-plt.plot(np.arange(0,N),d, label='Original')
+plt.plot(np.arange(0, N), d, label='Original')
 
 dow_fft = np.fft.rfft(d)
-for i in range(51,513):
+for i in range(51, 513):
     dow_fft[i] = 0
 inverse = np.fft.irfft(dow_fft)
-plt.plot(np.arange(0,N),inverse, label='Smooth 10%')
+plt.plot(np.arange(0, N), inverse, label='Smooth 10%')
 
-for i in range(20,513):
+for i in range(20, 513):
     dow_fft[i] = 0
 inverse = np.fft.irfft(dow_fft)
-plt.plot(np.arange(0,N),inverse, label='Smooth 2%')
+plt.plot(np.arange(0, N), inverse, label='Smooth 2%')
 plt.legend()
 
 '''

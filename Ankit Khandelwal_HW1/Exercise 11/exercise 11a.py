@@ -5,8 +5,8 @@ ANKIT KHANDELWAL
 Exercise 11a
 '''
 
-import pandas as pd
 import matplotlib.pyplot as plt
+import pandas as pd
 
 sunspots = pd.read_csv("sunspots.txt", sep='\t', header=None)
 time = sunspots[0]

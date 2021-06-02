@@ -4,10 +4,11 @@ ANKIT KHANDELWAL
 Exercise 2
 '''
 
-import pandas as pd
+from cmath import exp, pi
+
 import matplotlib.pyplot as plt
 import numpy as np
-from cmath import exp, pi
+import pandas as pd
 
 sunspots = pd.read_csv("sunspots.txt", sep='\t', header=None)
 time = sunspots[0]
@@ -17,9 +18,9 @@ plt.xlabel('Time')
 plt.ylabel('Number of Sunspots')
 plt.figure()
 
-t1= time[0:500]
-n1= number[0:500]
-plt.plot(t1,n1)
+t1 = time[0:500]
+n1 = number[0:500]
+plt.plot(t1, n1)
 plt.xlabel('Time')
 plt.ylabel('Number of Sunspots')
 plt.title('For approximating period.')
@@ -27,30 +28,32 @@ plt.figure()
 # Period is around 100 months.
 
 N = 3143
-xv=np.arange(0,N)
+xv = np.arange(0, N)
+
 
 def dft(y):
-    c = np.zeros(N , complex)
-    for k in range(N//2+1):
+    c = np.zeros(N, complex)
+    for k in range(N // 2 + 1):
         for n in range(N):
-            c[k] = c[k] + y[n]*exp(-2j*pi*k*n/N)
-    for i in range(1, N//2+1):
-        c[N-i] = c[i].conjugate()
+            c[k] = c[k] + y[n] * exp(-2j * pi * k * n / N)
+    for i in range(1, N // 2 + 1):
+        c[N - i] = c[i].conjugate()
     return c
+
 
 dftnumber = dft(number)
 
-cmod=[]
+cmod = []
 for i in range(N):
-    cmod.append(abs(dftnumber[i])**2)
+    cmod.append(abs(dftnumber[i]) ** 2)
 
-plt.plot(xv,cmod)
+plt.plot(xv, cmod)
 plt.title('Coefficient\'s amplitudes.')
 plt.figure()
 
 maxx = cmod[1:100]
-xv1 = np.arange(1,100)
-plt.plot(xv1,maxx)
+xv1 = np.arange(1, 100)
+plt.plot(xv1, maxx)
 plt.title('Coefficient\'s amplitudes.')
 plt.show()
 # k = 24

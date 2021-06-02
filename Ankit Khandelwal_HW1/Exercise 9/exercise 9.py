@@ -7,8 +7,8 @@ Exercise 9
 
 import math
 
-prime=[2]
-for n in range(3,10000):
+prime = [2]
+for n in range(3, 10000):
     low_i = int(math.sqrt(n))
     for i in prime:
         if n % i == 0:

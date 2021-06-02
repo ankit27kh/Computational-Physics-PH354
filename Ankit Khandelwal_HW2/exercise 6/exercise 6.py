@@ -1,32 +1,34 @@
-from numpy import *
 import matplotlib.pyplot as plt
+from numpy import *
+
 
 def gaussxw(N):
-
     # Initial approximation to roots of the Legendre polynomial
-    a = linspace(3,4*N-1,N)/(4*N+2)
-    x = cos(pi*a+1/(8*N*N*tan(a)))
+    a = linspace(3, 4 * N - 1, N) / (4 * N + 2)
+    x = cos(pi * a + 1 / (8 * N * N * tan(a)))
 
     # Find roots using Newton's method
     epsilon = 1e-15
     delta = 1.0
-    while delta>epsilon:
-        p0 = ones(N,float)
+    while delta > epsilon:
+        p0 = ones(N, float)
         p1 = copy(x)
-        for k in range(1,N):
-            p0,p1 = p1,((2*k+1)*x*p1-k*p0)/(k+1)
-        dp = (N+1)*(p0-x*p1)/(1-x*x)
-        dx = p1/dp
+        for k in range(1, N):
+            p0, p1 = p1, ((2 * k + 1) * x * p1 - k * p0) / (k + 1)
+        dp = (N + 1) * (p0 - x * p1) / (1 - x * x)
+        dx = p1 / dp
         x -= dx
         delta = max(abs(dx))
 
     # Calculate the weights
-    w = 2*(N+1)*(N+1)/(N*N*(1-x*x)*dp*dp)
+    w = 2 * (N + 1) * (N + 1) / (N * N * (1 - x * x) * dp * dp)
 
-    return x,w
+    return x, w
+
 
 def f1(n, y, z):
-    return 1/sqrt(((n**2)+(y**2)+(z**2)) ** 3)
+    return 1 / sqrt(((n ** 2) + (y ** 2) + (z ** 2)) ** 3)
+
 
 def f2(y, z, x, w):
     a = -5
@@ -38,6 +40,7 @@ def f2(y, z, x, w):
         s2 += wp[k] * f1(xp[k], y, z)
     return s2
 
+
 def f3(z, x, w):
     a = -5
     b = 5
@@ -47,6 +50,7 @@ def f3(z, x, w):
     for k in range(N):
         s1 += wp[k] * f2(yp[k], z, x, w)
     return s1
+
 
 N = 100
 d1 = linspace(0, 0.3, 100)

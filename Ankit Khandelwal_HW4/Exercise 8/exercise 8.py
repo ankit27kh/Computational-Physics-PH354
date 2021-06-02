@@ -4,20 +4,23 @@ ANKIT KHANDELWAL
 Exercise 8
 '''
 
-import pandas as pd
+from math import exp
+
 import matplotlib.pyplot as plt
 import numpy as np
-from math import exp
+import pandas as pd
 
 blur = pd.read_csv("blur.txt", sep=' ', header=None)
 
-def G(x,y):
-    return exp(-(x**2+y**2)/(2*25**2))
 
-gauss = np.ones((1024,1024))
+def G(x, y):
+    return exp(-(x ** 2 + y ** 2) / (2 * 25 ** 2))
+
+
+gauss = np.ones((1024, 1024))
 for i in range(1024):
     for j in range(1024):
-        gauss[i-512][j-512] = G(i-512,j-512)
+        gauss[i - 512][j - 512] = G(i - 512, j - 512)
 
 plt.imshow(blur)
 plt.title('Blur')
@@ -27,14 +30,14 @@ plt.title('Gauss')
 plt.figure()
 blur_fft = np.fft.rfft2(blur)
 gauss_fft = np.fft.rfft2(gauss)
-unblur=np.ones((1024,513), complex)
+unblur = np.ones((1024, 513), complex)
 
 for i in range(1024):
     for j in range(513):
-        if gauss_fft[i][j] > 10**-3:
-            unblur[i][j] = blur_fft[i][j]/gauss_fft[i][j]/1024**2
+        if gauss_fft[i][j] > 10 ** -3:
+            unblur[i][j] = blur_fft[i][j] / gauss_fft[i][j] / 1024 ** 2
         else:
-            unblur[i][j] = blur_fft[i][j]/1024**2
+            unblur[i][j] = blur_fft[i][j] / 1024 ** 2
 
 unblur_fft = np.fft.irfft2(unblur)
 plt.imshow(unblur_fft)

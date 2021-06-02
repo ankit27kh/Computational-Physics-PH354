@@ -5,24 +5,28 @@ Exercise 8 Burger
 15863
 """
 
-import numpy as np
-import matplotlib.pyplot as plt
 from math import sin, pi
+
+import matplotlib.pyplot as plt
+import numpy as np
 
 N = 128
 xi = 0
 xf = 1
 xv = np.linspace(xi, xf, N)
-dx = (xf-xi)/N
-dt = 0.5*dx
-tv = np.linspace(0, 0.5, int(1/dt))
+dx = (xf - xi) / N
+dt = 0.5 * dx
+tv = np.linspace(0, 0.5, int(1 / dt))
+
 
 def u0(x):
-    return sin(2*pi*x)
+    return sin(2 * pi * x)
+
 
 def f(u):
-    return u**2/2
-   
+    return u ** 2 / 2
+
+
 u = np.zeros(N, float)
 for i in range(N):
     u[i] = u0(xv[i])
@@ -42,10 +46,10 @@ for t in tv:
         plt.plot(xv, u_new, label=t)
         count = 4
     for i in range(N):
-        if i < N-1:
-            u_new[i] = (u[i+1] + u[i-1])/2 - dt/2/dx * (f(u[i+1]) - f(u[i-1]))
+        if i < N - 1:
+            u_new[i] = (u[i + 1] + u[i - 1]) / 2 - dt / 2 / dx * (f(u[i + 1]) - f(u[i - 1]))
         else:
-            u_new[i] = (u[0] + u[i-1])/2 - dt/2/dx * (f(u[0]) - f(u[i-1]))            
+            u_new[i] = (u[0] + u[i - 1]) / 2 - dt / 2 / dx * (f(u[0]) - f(u[i - 1]))
     u = np.copy(u_new)
 
 plt.legend()
@@ -74,11 +78,11 @@ for t in tv:
         count = 4
     for i in range(N):
         if u[i] >= 0:
-            u_new[i] = u[i] + dt/dx * (f(u[i-1]) - f(u[i]))
-        elif i < N-1 and  u[i] <= 0:
-           u_new[i] = u[i] + dt/dx * (f(u[i]) - f(u[i+1]))
+            u_new[i] = u[i] + dt / dx * (f(u[i - 1]) - f(u[i]))
+        elif i < N - 1 and u[i] <= 0:
+            u_new[i] = u[i] + dt / dx * (f(u[i]) - f(u[i + 1]))
         else:
-            u_new[i] = u[i] + dt/dx * (f(u[i]) - f(u[0]))
+            u_new[i] = u[i] + dt / dx * (f(u[i]) - f(u[0]))
     u = np.copy(u_new)
 plt.legend()
 plt.xlabel('X')
@@ -105,14 +109,14 @@ for t in tv:
         plt.plot(xv, u_new, label='0.5')
         count = 4
     for i in range(N):
-        if i < N-1:
-            u_half1 = 1/2*(u[i+1] + u[i]) - dt/2/dx * (f(u[i+1]) - f(u[i]))
-            u_half2 = 1/2*(u[i] + u[i-1]) - dt/2/dx * (f(u[i]) - f(u[i-1]))
-            u_new[i] = u[i] - dt/dx * (f(u_half1) - f(u_half2))
+        if i < N - 1:
+            u_half1 = 1 / 2 * (u[i + 1] + u[i]) - dt / 2 / dx * (f(u[i + 1]) - f(u[i]))
+            u_half2 = 1 / 2 * (u[i] + u[i - 1]) - dt / 2 / dx * (f(u[i]) - f(u[i - 1]))
+            u_new[i] = u[i] - dt / dx * (f(u_half1) - f(u_half2))
         else:
-            u_half1 = 1/2*(u[0] + u[i]) - dt/2/dx * (f(u[0]) - f(u[i]))
-            u_half2 = 1/2*(u[i] + u[i-1]) - dt/2/dx * (f(u[i]) - f(u[i-1]))
-            u_new[i] = u[i] - dt/dx * (f(u_half1) - f(u_half2))
+            u_half1 = 1 / 2 * (u[0] + u[i]) - dt / 2 / dx * (f(u[0]) - f(u[i]))
+            u_half2 = 1 / 2 * (u[i] + u[i - 1]) - dt / 2 / dx * (f(u[i]) - f(u[i - 1]))
+            u_new[i] = u[i] - dt / dx * (f(u_half1) - f(u_half2))
     u = np.copy(u_new)
 
 plt.legend()

@@ -5,9 +5,8 @@ ANKIT KHANDELWAL
 Exercise 13
 '''
 
-from mpl_toolkits import mplot3d
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 
 stm = pd.read_csv("stm.txt", sep=' ', header=None)

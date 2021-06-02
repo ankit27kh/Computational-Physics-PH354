@@ -4,26 +4,29 @@ ANKIT KHANDELWAL
 Exercise 4 Square Wave
 '''
 
-import matplotlib.pyplot as plt
-import numpy as np
 from math import floor
 
+import matplotlib.pyplot as plt
+import numpy as np
+
+
 def f(t):
-    if floor(2*t)%2 == 0:
+    if floor(2 * t) % 2 == 0:
         return 1
-    else:   
+    else:
         return -1
 
-xv=np.linspace(0,1,1000)
+
+xv = np.linspace(0, 1, 1000)
 values = []
 for i in range(1000):
     values.append(f(xv[i]))
-    
-plt.plot(xv,values, label='Square Wave')
+
+plt.plot(xv, values, label='Square Wave')
 v_fft = np.fft.rfft(values)
-v_fft[10:]=0
+v_fft[10:] = 0
 v_inverse = np.fft.irfft(v_fft)
-plt.plot(xv,v_inverse, label='Smoothing using first 10 coefficients')
+plt.plot(xv, v_inverse, label='Smoothing using first 10 coefficients')
 plt.legend(loc='lower left', framealpha=0)
 plt.show()
 

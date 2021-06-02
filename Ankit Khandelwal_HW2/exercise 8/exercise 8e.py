@@ -1,21 +1,23 @@
-from numpy import sqrt, sin, cos, pi, linspace, zeros
 import matplotlib.pylab as plt
+from numpy import sqrt, sin, cos, pi, linspace, zeros
+
 
 def q(u, alpha):
-    return (sin(alpha * u) ** 2) * (sin((alpha/2) * u) ** 2)
+    return (sin(alpha * u) ** 2) * (sin((alpha / 2) * u) ** 2)
+
 
 def i_n(x):
     l = 500e-9
     d = 20e-6
     w = 10 * d
     alpha = pi / d
-    a = -1*w/2
-    b = w/2
+    a = -1 * w / 2
+    b = w / 2
     N = 20
     h = d / 2
-    sum1 = sqrt(q(a, alpha)) * cos((2*pi*x*a)/l) + sqrt(q(b, alpha)) * cos((2*pi*x*b)/l)
+    sum1 = sqrt(q(a, alpha)) * cos((2 * pi * x * a) / l) + sqrt(q(b, alpha)) * cos((2 * pi * x * b) / l)
     for k in range(1, N, 2):
-        sum1 = sum1 + 4 * (sqrt(q((a+(k*h)), alpha)) * cos((2*pi*x*(a+(k*h))/l)))
+        sum1 = sum1 + 4 * (sqrt(q((a + (k * h)), alpha)) * cos((2 * pi * x * (a + (k * h)) / l)))
     for k in range(2, N, 2):
         sum1 = sum1 + 2 * (sqrt(q((a + (k * h)), alpha)) * cos((2 * pi * x * (a + (k * h)) / l)))
     i_cos = (h / 3) * sum1
@@ -26,6 +28,8 @@ def i_n(x):
         sum2 = sum2 + 2 * (sqrt(q((a + (k * h)), alpha)) * sin((2 * pi * x * (a + (k * h)) / l)))
     i_sin = (h / 3) * sum2
     return (i_cos ** 2) + (i_sin ** 2)
+
+
 n = 1000
 p = linspace(-5, 5, n)
 intensity = []
